@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "395886387236",
+    "firebase_url": "https://restaurant-database-b01ac-default-rtdb.firebaseio.com",
+    "project_id": "restaurant-database-b01ac",
+    "storage_bucket": "restaurant-database-b01ac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395886387236:android:1e4bd57f31feae9e5078b1",
+        "android_client_info": {
+          "package_name": "com.bignerdranch.restaurantsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuD_NeD6b2NQpDt6Kd2Vjqs7OmeOnlHtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
