@@ -1,4 +1,4 @@
-package com.bignerdranch.restaurantsapp
+package com.bignerdranch.restaurantsapp.restaurants.presentation.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bignerdranch.restaurantsapp.restaurants.presentation.list.RestaurantDetails
+import com.bignerdranch.restaurantsapp.restaurants.presentation.list.RestaurantIcon
 
 @Composable
 fun RestaurantDetailsScreen(){
@@ -32,7 +34,8 @@ fun RestaurantDetailsScreen(){
                 item.title,
                 item.description,
                 Modifier.padding(bottom = 32.dp),
-                Alignment.CenterHorizontally)
+                Alignment.CenterHorizontally
+            )
             Text("More info coming soon!")
         }
     }
