@@ -1,30 +1,23 @@
 package com.bignerdranch.restaurantsapp.restaurants.data
 
 import com.bignerdranch.restaurantsapp.restaurants.domain.Restaurant
-import com.bignerdranch.restaurantsapp.RestaurantsApplication
 import com.bignerdranch.restaurantsapp.restaurants.data.local.LocalRestaurant
 import com.bignerdranch.restaurantsapp.restaurants.data.local.PartialLocalRestaurant
-import com.bignerdranch.restaurantsapp.restaurants.data.local.RestaurantsDb
+import com.bignerdranch.restaurantsapp.restaurants.data.local.RestaurantsDao
 import com.bignerdranch.restaurantsapp.restaurants.data.remote.RestaurantsApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.net.ConnectException
 import java.net.UnknownHostException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RestaurantsRepository {
-    private var restInterface: RestaurantsApiService =
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://restaurant-database-b01ac-default-rtdb.firebaseio.com/")
-            .build()
-            .create(RestaurantsApiService::class.java)
-
-    private var restaurantsDao = RestaurantsDb.getDaoInstance(
-        RestaurantsApplication.getAppContext()
-    )
+@Singleton
+class RestaurantsRepository @Inject constructor(
+    private val restInterface: RestaurantsApiService,
+    private val restaurantsDao: RestaurantsDao
+) {
 
     suspend fun toggleFavoriteRestaurant(
         id: Int,
