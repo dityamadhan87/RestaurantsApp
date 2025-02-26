@@ -1,11 +1,12 @@
 package com.bignerdranch.restaurantsapp.restaurants.data
 
+import com.bignerdranch.restaurantsapp.restaurants.data.di.IoDispatcher
 import com.bignerdranch.restaurantsapp.restaurants.domain.Restaurant
 import com.bignerdranch.restaurantsapp.restaurants.data.local.LocalRestaurant
 import com.bignerdranch.restaurantsapp.restaurants.data.local.PartialLocalRestaurant
 import com.bignerdranch.restaurantsapp.restaurants.data.local.RestaurantsDao
 import com.bignerdranch.restaurantsapp.restaurants.data.remote.RestaurantsApiService
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.net.ConnectException
@@ -16,14 +17,15 @@ import javax.inject.Singleton
 @Singleton
 class RestaurantsRepository @Inject constructor(
     private val restInterface: RestaurantsApiService,
-    private val restaurantsDao: RestaurantsDao
+    private val restaurantsDao: RestaurantsDao,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend fun toggleFavoriteRestaurant(
         id: Int,
         value: Boolean
     ) =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             restaurantsDao.update(
                 PartialLocalRestaurant(
                     id = id,
@@ -33,7 +35,7 @@ class RestaurantsRepository @Inject constructor(
         }
 
     suspend fun getRestaurants(): List<Restaurant> {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             return@withContext restaurantsDao.getAll().map {
                 Restaurant(
                     it.id, it.title,
@@ -44,7 +46,7 @@ class RestaurantsRepository @Inject constructor(
     }
 
     suspend fun loadRestaurants() {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             try {
                 refreshCache()
             } catch (e: Exception) {
